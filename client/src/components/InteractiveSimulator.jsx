@@ -286,7 +286,7 @@ export default function InteractiveSimulator() {
                     </div>
 
                     <div className="chart-container-wrap">
-                      <ResponsiveContainer width="100%" height="100%">
+                      <ResponsiveContainer width="99%" height="100%">
                         <AreaChart
                           data={[
                             { name: '10 AM', expected: (crmStats?.expectedRevenue || 845000) * 0.7, converted: (crmStats?.convertedRevenue || 412000) * 0.7 },
@@ -539,7 +539,7 @@ export default function InteractiveSimulator() {
                     </div>
 
                     <div className="chart-container-wrap">
-                      <ResponsiveContainer width="100%" height="100%">
+                      <ResponsiveContainer width="99%" height="100%">
                         <AreaChart
                           data={adsStats?.chartData}
                           margin={{ top: 10, right: 10, left: -10, bottom: 0 }}

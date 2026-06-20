@@ -30,6 +30,34 @@ function SyntaxFlyWord({
   const flightColor = syntaxColors[type] || syntaxColors.text;
   const delay = startDelay + idx * wordDelay;
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  if (isMobile) {
+    return (
+      <span
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          marginRight: '0.28em',
+          whiteSpace: 'nowrap',
+          color: finalColor || flightColor
+        }}
+      >
+        {prefix && (
+          <span style={{ fontFamily: 'monospace', color: '#94a3b8', marginRight: '2px', fontSize: '0.75em' }}>
+            {prefix}
+          </span>
+        )}
+        <span>{word}</span>
+        {suffix && (
+          <span style={{ fontFamily: 'monospace', color: '#94a3b8', marginLeft: '2px', fontSize: '0.75em' }}>
+            {suffix}
+          </span>
+        )}
+      </span>
+    );
+  }
+
   return (
     <motion.span
       initial={{ 

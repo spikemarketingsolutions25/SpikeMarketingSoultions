@@ -13,6 +13,16 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home'); // 'home', 'services', 'pricing', 'cases', 'about'
   const [videoError, setVideoError] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +62,7 @@ export default function App() {
   return (
     <div className="app-root">
       {/* 3D Digital Particle Video Background or Canvas Fallback */}
-      {!videoError ? (
+      {!isMobile && !videoError ? (
         <div className="background-video-container">
           <video
             className="background-video-loop"
@@ -61,29 +71,31 @@ export default function App() {
             muted
             playsInline
             onError={() => setVideoError(true)}
-            src="https://cdn.pixabay.com/video/2021/04/17/71337-538435133_large.mp4"
+            src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-31993-large.mp4"
           />
         </div>
-      ) : (
+      ) : !isMobile ? (
         <ParticleBackground />
-      )}
+      ) : null}
       <div className="background-video-overlay" />
 
       {/* Floating Scroll Parallax Elements */}
-      <div className="floating-parallax-container">
-        <motion.div
-          className="parallax-shape parallax-shape-ring"
-          style={{ y: yParallax1, rotate: rotateParallax, top: '15%', left: '8%' }}
-        />
-        <motion.div
-          className="parallax-shape parallax-shape-grid"
-          style={{ y: yParallax2, bottom: '15%', right: '5%' }}
-        />
-        <motion.div
-          className="parallax-shape parallax-shape-ring"
-          style={{ y: yParallax2, top: '55%', right: '12%', scale: 0.7 }}
-        />
-      </div>
+      {!isMobile && (
+        <div className="floating-parallax-container">
+          <motion.div
+            className="parallax-shape parallax-shape-ring"
+            style={{ y: yParallax1, rotate: rotateParallax, top: '15%', left: '8%' }}
+          />
+          <motion.div
+            className="parallax-shape parallax-shape-grid"
+            style={{ y: yParallax2, bottom: '15%', right: '5%' }}
+          />
+          <motion.div
+            className="parallax-shape parallax-shape-ring"
+            style={{ y: yParallax2, top: '55%', right: '12%', scale: 0.7 }}
+          />
+        </div>
+      )}
 
       {/* Scroll Progress Bar */}
       <motion.div className="scroll-progress-bar" style={{ scaleX }} />
