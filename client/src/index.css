@@ -1373,6 +1373,141 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.1em;
 }
 
+/* 3-Dot Options Button & Dropdown styles */
+.nav-more-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-more-btn {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid var(--border-subtle);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-more-btn:hover, .nav-more-btn.active {
+  background: white;
+  border-color: rgba(79, 70, 229, 0.35);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.nav-more-dropdown {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-bright) !important;
+  border-radius: var(--r-md);
+  padding: 8px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10000;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  color: var(--text-secondary);
+  border: none;
+  background: transparent;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(79, 70, 229, 0.06);
+  color: var(--primary);
+}
+
+.dropdown-icon {
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover .dropdown-icon {
+  color: var(--primary);
+}
+
+/* Mobile actions container inside Navbar */
+.nav-mobile-actions {
+  display: none;
+}
+
+.mobile-nav-toggle {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.mobile-nav-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Team Card Contact Details Styles */
+.member-contact-details {
+  margin-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 12px;
+  font-size: 0.82rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.member-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.member-contact-label {
+  font-weight: 750;
+  color: var(--text-muted);
+}
+
+.member-contact-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 800;
+  transition: color 0.2s ease;
+}
+
+.member-contact-link:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
 /* ─────────────────────────────────────────
    RESPONSIVE VIEWPORT BREAKPOINTS
    ───────────────────────────────────────── */
@@ -1554,6 +1689,94 @@ h1, h2, h3, h4, h5, h6 {
   .form-row .input-group {
     margin-bottom: 16px;
   }
+
+  /* Mobile menu rules & overrides */
+  .nav-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .floating-nav .nav-links {
+    display: none !important;
+  }
+
+  .mobile-nav-overlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-bright);
+    border-radius: var(--r-lg);
+    margin-top: 8px;
+    padding: 24px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .mobile-nav-link {
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    font-weight: 750;
+    color: var(--text-secondary);
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+  }
+
+  .mobile-nav-link:hover, .mobile-nav-link.active {
+    background: rgba(79, 70, 229, 0.06);
+    color: var(--primary);
+    padding-left: 20px;
+  }
+
+  .mobile-nav-cta {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* Ad Visual Mobile Stacking */
+  .ad-sourcing-visual {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Touch Swipable Simulator Tabs */
+  .tab-pill-group {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 4px;
+  }
+
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+  }
+
+  /* Center contact details inside cards on mobile */
+  .member-contact-item {
+    justify-content: center;
+  }
 }
 
 /* Tablet viewports (min-width: 768px) and (max-width: 1023px) */
@@ -1594,6 +1817,11 @@ h1, h2, h3, h4, h5, h6 {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+
+  .showcase-body {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
 }
 

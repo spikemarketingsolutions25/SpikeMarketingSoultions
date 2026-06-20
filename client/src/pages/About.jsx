@@ -229,17 +229,17 @@ export default function About() {
                 <h3 className="member-name">{member.name}</h3>
                 <span className="member-role">{member.role}</span>
                 <p className="member-bio">{member.bio}</p>
-                <div className="member-contact-details" style={{ marginTop: '12px', borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: '10px', fontSize: '11px', display: 'flex', flexDirection: 'column', gap: '4px', color: 'var(--text-muted)' }}>
+                <div className="member-contact-details">
                   {member.phone && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ fontWeight: '700' }}>Phone:</span>
-                      <a href={`tel:${member.phone.replace(/\s+/g, '')}`} style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '800' }}>{member.phone}</a>
+                    <div className="member-contact-item">
+                      <span className="member-contact-label">Phone:</span>
+                      <a href={`tel:${member.phone.replace(/\s+/g, '')}`} className="member-contact-link">{member.phone}</a>
                     </div>
                   )}
                   {member.email && (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                      <span style={{ fontWeight: '700' }}>Email:</span>
-                      <a href={`mailto:${member.email}`} style={{ color: 'var(--primary)', textDecoration: 'none', fontWeight: '800' }}>{member.email}</a>
+                    <div className="member-contact-item">
+                      <span className="member-contact-label">Email:</span>
+                      <a href={`mailto:${member.email}`} className="member-contact-link">{member.email}</a>
                     </div>
                   )}
                 </div>
