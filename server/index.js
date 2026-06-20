@@ -43,6 +43,13 @@ if (smtpUser && smtpPass) {
 
   transporter = nodemailer.createTransport(config);
   console.log(`Real SMTP Mail Transporter configured for user: ${smtpUser}`);
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('SMTP Connection verification failed:', error);
+    } else {
+      console.log('SMTP Connection is ready to send emails successfully!');
+    }
+  });
 } else {
   // Use Ethereal test account as fallback
   console.log('No SMTP config found. Provisioning mock Ethereal test account...');
