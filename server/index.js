@@ -19,20 +19,33 @@ app.use(express.json());
 // Setup nodemailer transporter
 let transporter;
 
-if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-  transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: process.env.SMTP_SECURE === 'true',
+const smtpUser = process.env.SMTP_USER || process.env.EMAIL_USER;
+const smtpPass = process.env.SMTP_PASS || process.env.EMAIL_PASS;
+const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+const smtpPort = parseInt(process.env.SMTP_PORT || '465');
+const secure = process.env.SMTP_SECURE !== 'false'; // default to true
+
+if (smtpUser && smtpPass) {
+  const config = {
     auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
+      user: smtpUser,
+      pass: smtpPass,
     },
-  });
-  console.log('Real SMTP Mail Transporter configured.');
+  };
+
+  if (smtpHost === 'smtp.gmail.com') {
+    config.service = 'gmail';
+  } else {
+    config.host = smtpHost;
+    config.port = smtpPort;
+    config.secure = secure;
+  }
+
+  transporter = nodemailer.createTransport(config);
+  console.log(`Real SMTP Mail Transporter configured for user: ${smtpUser}`);
 } else {
   // Use Ethereal test account as fallback
-  console.log('No SMTP config found in .env. Provisioning mock Ethereal test account...');
+  console.log('No SMTP config found. Provisioning mock Ethereal test account...');
   nodemailer.createTestAccount().then((account) => {
     transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
@@ -56,8 +69,10 @@ async function sendLeadEmail(lead) {
     return null;
   }
 
+  const senderEmail = smtpUser || 'leads@spike-marketing-platform.io';
+
   const mailOptions = {
-    from: '"Spike Leads" <leads@spike-marketing-platform.io>',
+    from: `"Spike Leads" <${senderEmail}>`,
     to: 'garg.abhi999@gmail.com, lakshayb057@gmail.com, Spikemarketingsolutions25@gmail.com',
     subject: `🔥 New Lead Received: ${lead.name} (${lead.serviceInterest})`,
     text: `
