@@ -2,6 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -310,6 +315,14 @@ app.get('/api/simulation/ads', (req, res) => {
     activeCampaigns,
     chartData
   });
+});
+
+// Serve frontend static assets in production
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Route all other requests to React frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.listen(PORT, () => {
