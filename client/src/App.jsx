@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AnimatePresence, motion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { ShieldCheck, ArrowUp, Menu, X, MoreVertical, Mail, TrendingUp, Activity } from 'lucide-react';
+import { ShieldCheck, ArrowUp, Menu, X } from 'lucide-react';
 import Home from './pages/Home';
 import ServicesDetail from './pages/ServicesDetail';
 import Pricing from './pages/Pricing';
@@ -13,7 +13,6 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState('home'); // 'home', 'services', 'pricing', 'cases', 'about'
   const [videoError, setVideoError] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +25,6 @@ export default function App() {
   const handleNavigation = (pageId, anchorId = null) => {
     setCurrentPage(pageId);
     setIsMobileMenuOpen(false);
-    setIsMoreDropdownOpen(false);
     if (anchorId) {
       setTimeout(() => {
         const el = document.getElementById(anchorId);
@@ -134,82 +132,10 @@ export default function App() {
             >
               Book Demo
             </button>
-
-            {/* 3-Dot Options Dropdown (Desktop) */}
-            <div className="nav-more-wrapper">
-              <button 
-                onClick={() => setIsMoreDropdownOpen(!isMoreDropdownOpen)} 
-                className={`nav-more-btn ${isMoreDropdownOpen ? 'active' : ''}`}
-                aria-label="More options"
-              >
-                <MoreVertical size={16} />
-              </button>
-
-              <AnimatePresence>
-                {isMoreDropdownOpen && (
-                  <motion.div 
-                    className="nav-more-dropdown glass-panel"
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <button onClick={() => handleNavigation('home', 'demo')} className="dropdown-item">
-                      <Activity size={14} className="dropdown-icon" />
-                      <span>WhatsApp Sandbox</span>
-                    </button>
-                    <button onClick={() => handleNavigation('home', 'roi')} className="dropdown-item">
-                      <TrendingUp size={14} className="dropdown-icon" />
-                      <span>ROI Assessment</span>
-                    </button>
-                    <a href="mailto:Spikemarketingsolutions25@gmail.com" className="dropdown-item">
-                      <Mail size={14} className="dropdown-icon" />
-                      <span>Direct Support</span>
-                    </a>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
           </div>
 
           {/* Mobile Navigation Elements */}
           <div className="nav-mobile-actions">
-            {/* 3-Dot Options Dropdown (Mobile) */}
-            <div className="nav-more-wrapper">
-              <button 
-                onClick={() => setIsMoreDropdownOpen(!isMoreDropdownOpen)} 
-                className={`nav-more-btn ${isMoreDropdownOpen ? 'active' : ''}`}
-                aria-label="More options"
-              >
-                <MoreVertical size={16} />
-              </button>
-
-              <AnimatePresence>
-                {isMoreDropdownOpen && (
-                  <motion.div 
-                    className="nav-more-dropdown glass-panel"
-                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                    transition={{ duration: 0.15 }}
-                  >
-                    <button onClick={() => handleNavigation('home', 'demo')} className="dropdown-item">
-                      <Activity size={14} className="dropdown-icon" />
-                      <span>WhatsApp Sandbox</span>
-                    </button>
-                    <button onClick={() => handleNavigation('home', 'roi')} className="dropdown-item">
-                      <TrendingUp size={14} className="dropdown-icon" />
-                      <span>ROI Assessment</span>
-                    </button>
-                    <a href="mailto:Spikemarketingsolutions25@gmail.com" className="dropdown-item">
-                      <Mail size={14} className="dropdown-icon" />
-                      <span>Direct Support</span>
-                    </a>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             {/* Hamburger Toggle Button */}
             <button 
               className="mobile-nav-toggle"
